@@ -6,12 +6,16 @@ namespace HelloWorld
     {
         static void Main(string[] args)
         {
-           //Console.WriteLine("Hello Drew!");
-string name = "";
+
+        // project section of first lesson
+        Console.WriteLine("Hello Drew!");
+
+        // homework section of first lesson
+        string name = "";
 		int age = 0;
 		int year = 0;
 
-           Console.WriteLine("Please enter your name: ");
+        Console.WriteLine("Please enter your name: ");
 		name = Console.ReadLine();
 		Console.WriteLine("Please enter your age: ");
 		age = Convert.ToInt32(Console.ReadLine());
