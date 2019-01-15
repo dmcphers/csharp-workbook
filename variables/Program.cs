@@ -24,7 +24,7 @@ namespace variables
          //convert yards to inches
          int yards = 3;
          
-          float result = 0;
+         float result = 0;
 
           //Console.WriteLine("Please enter a number for yards");
           //yards = Convert.ToInt32(Console.ReadLine());
@@ -33,7 +33,7 @@ namespace variables
 
         bool people = true;
         bool f = false;
-        decimal num = 1.5;
+        decimal num = 1.5m;
 
         System.Console.WriteLine("the product of num times itself is {0}", num*num);
 
