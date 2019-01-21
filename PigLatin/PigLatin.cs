@@ -23,7 +23,23 @@ namespace PigLatin
             // string result = (secondPart + firstPart + "ay");
             // Console.WriteLine(result.ToUpper());
             string[] words = Console.ReadLine().Split(" ");
+            
+            string pglsentence = TranslateWord(words);
+            bool hasPunctuation = CheckForPunctuation(pglsentence);
+
+            
+
+        
+            //Console.WriteLine(restWord);
+            // leave this command at the end so your program does not close automatically
+            Console.ReadLine();
+        }
+        
+        public static string TranslateWord(string[] words)
+        {
+            // your code goes here
             string[] pglwords = new string[words.Length];
+
             for (int i = 0; i < words.Length; i++)
             {
                 int firstVowelIndex = words[i].IndexOfAny(new char[]{'a','e','i','o','u','y'});
@@ -44,18 +60,20 @@ namespace PigLatin
                 }
             }
             string pglsentence = String.Join(" ", pglwords);
+            
             Console.WriteLine(pglsentence.ToLower());
-
-        
-            //Console.WriteLine(restWord);
-            // leave this command at the end so your program does not close automatically
-            //Console.ReadLine();
+            return pglsentence;
         }
-        
-        public static string TranslateWord(string word)
+
+        public static Boolean CheckForPunctuation(string pglsentence)
         {
-            // your code goes here
-            return word;
+            string[] pglsentencearray = pglsentence.Split(" ");
+            for (int i = 0; i < pglsentencearray.Length; i++)
+            {
+                Console.WriteLine(pglsentencearray[i] + "test");
+            }
+            
+            return true;
         }
     }
 }
