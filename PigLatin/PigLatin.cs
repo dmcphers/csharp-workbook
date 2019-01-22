@@ -25,7 +25,7 @@ namespace PigLatin
             string[] words = Console.ReadLine().Split(" ");
             
             string pglsentence = TranslateWord(words);
-            bool hasPunctuation = CheckForPunctuation(pglsentence);
+            //bool hasPunctuation = CheckForPunctuation(pglsentence);
 
             
 
@@ -65,15 +65,15 @@ namespace PigLatin
             return pglsentence;
         }
 
-        public static Boolean CheckForPunctuation(string pglsentence)
-        {
-            string[] pglsentencearray = pglsentence.Split(" ");
-            for (int i = 0; i < pglsentencearray.Length; i++)
-            {
-                Console.WriteLine(pglsentencearray[i] + "test");
-            }
+        // public static Boolean CheckForPunctuation(string pglsentence)
+        // {
+        //     string[] pglsentencearray = pglsentence.Split(" ");
+        //     for (int i = 0; i < pglsentencearray.Length; i++)
+        //     {
+        //         Console.WriteLine(pglsentencearray[i] + "test");
+        //     }
             
-            return true;
-        }
+        //     return true;
+        // }
     }
 }
