@@ -106,11 +106,11 @@ namespace RockPaperScissors
                 
             return hand1 + ' ' + hand2;
         }
-        public static int KeepScore(int hand1, int hand2)
+        // public static int KeepScore(int hand1, int hand2)
     
-        {
+        // {
             
-            return hand1 + ' ' + hand2;
-        }
+        //     return hand1 + ' ' + hand2;
+        // }
     }
 }
