@@ -4,19 +4,38 @@ namespace sort
 {
     class Program
     {
-        int[] numbers = {20, 10, 50, 80, 15};
-        static void Main(int[] numbers)
+        static void Main()
         {
-            //Console.WriteLine("Hello World!");
+            bool sort = false;
+            int[] numbers = new int[]{3434,1242,8595,2942,293473,92343,987434,46374};
+            
+                    for (int i = 0; i < numbers.Length - 1; i++)
+                    {
+                        int current = numbers[i];
+                        int next = numbers[i + 1];
+
+                        if (numbers[i] >= numbers[i + 1])
+                        {
+                           numbers[i] = next;
+                           numbers[i + 1] = current;
+                           sort = false;
+                        }
+                        else if (numbers[i] < numbers[i + 1])
+                        {
+                            numbers[i] = current;
+                            sort = true;
+                        }
+                            if (!sort)
+                            {
+                                i = 0;
+                            }
+                        
+                    }
+         
             for (int i = 0; i < numbers.Length; i++)
             {
-                 if (numbers[i] > numbers[i + 1])
-                 {
-                     numbers[i + 1] = numbers[0];
-                     
-                 }
+                 System.Console.WriteLine(numbers[i]);
             }
-            
         }
     }
 }
