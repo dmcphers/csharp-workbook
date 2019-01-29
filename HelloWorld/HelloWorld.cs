@@ -7,7 +7,8 @@ namespace HelloWorld
         static void Main(string[] args)
         {
 
-        // project section of first lesson
+          // project section of first lesson
+
         Console.WriteLine("Hello Drew!");
 
         // homework section of first lesson
@@ -23,6 +24,7 @@ namespace HelloWorld
 		year = Convert.ToInt32(Console.ReadLine());
 		
 		Console.WriteLine("Hello! My name is {0} and I am {1} years old. I was born in {2}.", name, age, year-age);
+
         }
     }
 }
