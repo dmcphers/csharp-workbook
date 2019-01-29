@@ -19,7 +19,6 @@ namespace TicTacToe
             {
                 DrawBoard();
                 GetInput();
-                
 
             } while (!CheckForWin() && !CheckForTie());
 
