@@ -14,11 +14,12 @@ namespace OOP1
         Person female = new Person("Jane");
 
 		Garage smallGarage = new Garage(2);
-        
-        blueCar.addPerson(male);
 		
-		smallGarage.ParkCar(blueCar, 0);
-		Console.WriteLine(smallGarage.Cars);
+	    smallGarage.ParkCar(blueCar, 0);
+        Console.WriteLine(smallGarage.Cars);
+        blueCar.addPerson(male, 0);
+        System.Console.WriteLine(blueCar.Passengers);
+		
         }
         
     }
@@ -28,16 +29,28 @@ namespace OOP1
         public Car(string initialColor)
         {
             Color = initialColor;
-            passengers = new Person[1];
+            this.passengers = new Person[1];
         }
         
         public string Color { get; private set; }
 
-        private Person[] passengers;
+        public Person[] passengers;
 
-        public void addPerson (Person passenger)
+        public void addPerson (Person passenger, int spot)
         {
-            this.passengers[0] = passenger;
+           passengers[spot] = passenger;
+        }
+
+        public string Passengers {
+            get {
+                for (int i = 0; i < passengers.Length; i++)
+                {
+                    if (passengers[i] != null) {
+                        Console.WriteLine(String.Format("You have added {0} to the car", passengers[i].Name));
+                    }
+                }
+                return "That's all!";
+            }
         }
 
     }
@@ -64,7 +77,7 @@ namespace OOP1
                 for (int i = 0; i < cars.Length; i++)
                 {
                     if (cars[i] != null) {
-                        Console.WriteLine(String.Format("The {0} car is in spot {1}. ", cars[i].Color, i));
+                        Console.WriteLine(String.Format("The {0} car is in spot {1}", cars[i].Color, i));
                     }
                 }
                 return "That's all!";
@@ -78,7 +91,6 @@ namespace OOP1
         {
             Name = initialName;
         }
-
         public string Name { get; private set; }
     }
 }
