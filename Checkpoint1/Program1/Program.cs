@@ -7,6 +7,7 @@ namespace Program1
         
         static void Main(string[] args)
         {
+
             // ask user question that will determine output of program
             Console.WriteLine("Would you like to see how many numbers between 1 and 100 are divisible by 3 ?");
             Console.WriteLine("If yes press y, if no press n");
