@@ -15,13 +15,13 @@ namespace OOP1
 
 		Garage smallGarage = new Garage(2);
 		
+        blueCar.addPerson(male, 0);
+        blueCar.addPerson(female, 1);
 	    smallGarage.ParkCar(blueCar, 0);
         Console.WriteLine(smallGarage.Cars);
-        blueCar.addPerson(male, 0);
-        System.Console.WriteLine(blueCar.Passengers);
+        //System.Console.WriteLine(blueCar.Passengers);
 		
         }
-        
     }
 
     class Car
@@ -29,7 +29,7 @@ namespace OOP1
         public Car(string initialColor)
         {
             Color = initialColor;
-            this.passengers = new Person[1];
+            this.passengers = new Person[2];
         }
         
         public string Color { get; private set; }
@@ -39,17 +39,19 @@ namespace OOP1
         public void addPerson (Person passenger, int spot)
         {
            passengers[spot] = passenger;
+           //System.Console.WriteLine(passenger);
         }
 
         public string Passengers {
             get {
+                string passengerNames = "";
                 for (int i = 0; i < passengers.Length; i++)
                 {
                     if (passengers[i] != null) {
-                        Console.WriteLine(String.Format("You have added {0} to the car", passengers[i].Name));
+                        passengerNames += passengers[i].Name + " ";
                     }
                 }
-                return "That's all!";
+                return passengerNames;
             }
         }
 
@@ -77,7 +79,8 @@ namespace OOP1
                 for (int i = 0; i < cars.Length; i++)
                 {
                     if (cars[i] != null) {
-                        Console.WriteLine(String.Format("The {0} car is in spot {1}", cars[i].Color, i));
+                        Console.WriteLine(String.Format("The {0} car is in spot {1} and the people in that car are: {2}", 
+                            cars[i].Color, i, cars[i].Passengers));
                     }
                 }
                 return "That's all!";
