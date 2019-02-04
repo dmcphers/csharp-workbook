@@ -9,7 +9,18 @@ namespace Program2
         {
            // inform user of purpose of program
             Console.WriteLine("This program will take all the numbers you enter and add them together.");
-            
+            // call function that queries user for numbers and returns the sum of numbers to be stored in variable numTotal
+            int numTotal = calcSum();
+            // output message showing sum of numbers user has entered if numTotal is greater than 0 - otherwise 
+            // no output message needed because user did not enter any numbers
+            if (numTotal > 0)
+            {
+                System.Console.WriteLine("The sum of the numbers you entered is: {0}", numTotal);
+            }
+        }
+
+        public static int calcSum()
+        {
             // initialize a list to hold numbers user enters
             List<int> numbersList = new List<int>{};
             // declare and initialize a count variable that will be used to keep track if user has entered any numbers
@@ -19,6 +30,8 @@ namespace Program2
             // declare and initialize continueInput variable to determine whether program continues or stops
             bool continueInput = false;
 
+
+        // go through loop as long as user enters numbers or exit when ok is entered
         do {
                 // give user instructions
                 Console.WriteLine("Please enter either a number or the word 'ok' to exit.");
@@ -49,25 +62,25 @@ namespace Program2
                     // to false to end program
                     if (count == 0)
                     {
-                        Console.WriteLine("No numbers were entered.");
-                        continueInput = false;
+                        Console.WriteLine("No numbers were entered. Please run program again.");
+                        break;
                     }
                     else
-                    // display output of numbers user entered, the sum of the numbers entered, and
-                    // set continueInput to false to end program
+                    // display output of numbers user entered and set continueInput to false to 
+                    // return sum to function call in main 
                     {
                         System.Console.WriteLine("The numbers you entered were: ");
                         foreach (int number in numbersList)
                         {
                             System.Console.WriteLine(number);
                         }
-                        System.Console.WriteLine("The sum of the numbers you entered is: {0}", sum);
                         continueInput = false;
                     }
-                    
-                } 
+                }
 
             } while (continueInput);
+            // return sum of user entered numbers to function call in main
+            return sum;
         }
     }
 }
