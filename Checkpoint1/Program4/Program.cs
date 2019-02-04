@@ -45,7 +45,7 @@ namespace program4
                     System.Console.WriteLine("You have not entered a number, please run the program again.");
                 }
                 // loop through to the maximum number of tries if user does not guess number
-            } while (count < 4);
+        } while (count < 4);
 
             // display message that user lost and invite them to play again
             if (count == 4)
