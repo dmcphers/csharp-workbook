@@ -15,8 +15,11 @@ namespace Program1
         }
             // funtion calculates the answer to how many numbers are divisible between 1 and 100 by 3
         static int getAnswer()
-            {
+            {   
+                // initialize count to 0
                 int count = 0;
+                // loop from 1 to 100. If current number in loop is divisible by 3 with no remainder,
+                // then increment count
                 for (int i = 1; i < 100; i++)
                 {
                     if (i%3 == 0)
@@ -24,6 +27,7 @@ namespace Program1
                         count++;
                     }
                 }
+                // return count of numbers between 1 and 100 divisible by 3 to function call in main
                 return count;
             }
     }
