@@ -13,7 +13,7 @@ namespace program4
             Random rnd = new Random();
             // set the random variable to a value between 1 and 10 and put it into secNumber variable
             int secNumber = rnd.Next(1,11);
-            System.Console.WriteLine("The secret number is: {0}", secNumber);
+            //System.Console.WriteLine("The secret number is: {0}", secNumber);
 
             // initialize count of user tries to 0
             int count = 0;
