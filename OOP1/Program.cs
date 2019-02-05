@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OOP1
 {
@@ -29,23 +30,24 @@ namespace OOP1
         public Car(string initialColor)
         {
             Color = initialColor;
-            this.passengers = new Person[2];
+            this.passengers = new List <Person>();
+            // change to list
         }
         
         public string Color { get; private set; }
 
-        public Person[] passengers;
+        public List <Person> passengers;
 
         public void addPerson (Person passenger, int spot)
         {
-           passengers[spot] = passenger;
+           passengers.Add(passenger);
            //System.Console.WriteLine(passenger);
         }
 
         public string Passengers {
             get {
                 string passengerNames = "";
-                for (int i = 0; i < passengers.Length; i++)
+                for (int i = 0; i < passengers.Count; i++)
                 {
                     if (passengers[i] != null) {
                         passengerNames += passengers[i].Name + " ";

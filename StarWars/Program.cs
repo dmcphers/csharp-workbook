@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class Program
 {
@@ -84,4 +85,19 @@ class Ship
 	{
 		this.passengers[seat] = null;
 	}
+}
+
+class Station
+{
+
+	public string Name {get; set;}
+	public string Alliance {get; set;}
+	public int Size {get; set;}
+	public List<int> ports = new List<int>();
+
+	public Station(string name, string alliance, int size)
+		{
+			this.Name = name;
+			this.Alliance = alliance;
+		}
 }
