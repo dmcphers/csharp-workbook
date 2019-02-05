@@ -38,7 +38,7 @@ namespace program4
             do {
 
                     // prompt user to enter a number
-                    System.Console.WriteLine("Pleae enter a number between 1 and 10.");
+                    System.Console.WriteLine("Please enter a number between 1 and 10.");
                     // read user input into the userStringInput variable
                     string userStringInput = Console.ReadLine();
                     // convert user input to an integer variable
