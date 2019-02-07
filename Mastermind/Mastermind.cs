@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Mastermind
 {
@@ -81,6 +82,45 @@ namespace Mastermind
             {
                 solution[i] = letters[rnd.Next(0, letters.Length)];
             }
+        }
+    }
+
+    class Ball
+    {
+        public string Letter {get; private set;}
+
+        public Ball (string letter)
+        {
+            this.Letter = letter;
+        }
+    }
+
+    class Row
+    {
+        public Ball[] balls = new Ball[4];
+        public Row (Ball[] balls)
+        {
+            this.balls = balls;
+        } 
+
+        public string Balls{
+            get {
+                foreach (var ball in this.balls)
+                 {
+                     Console.WriteLine(ball.Letter);
+                }
+                return "";
+            }
+        }
+    }
+
+    class Game
+    {
+        private List<Row> rows = new List<Row> ();
+        private string[] answer = new string[4];
+        public Game(string[] answer)
+        {
+            this.answer = answer;
         }
     }
 }
