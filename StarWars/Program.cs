@@ -63,6 +63,12 @@ class Ship
 		set;
 	}
 
+	public string Name
+	{
+		get;
+		set;
+	}
+
 	public string Passengers
 	{
 		get
@@ -95,7 +101,7 @@ class Station
 	public int Size {get; set;}
 	public List<int> ports = new List<int>();
 
-	public Station(string name, string alliance, int size)
+	public Station(string name, string alliance)
 		{
 			this.Name = name;
 			this.Alliance = alliance;
