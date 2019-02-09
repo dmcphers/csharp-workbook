@@ -7,20 +7,24 @@ namespace OOP1
     {
         public static void Main()
         {
-            // {
-        //     Console.WriteLine("Hello World!");
-        // }
+         
         Car blueCar = new Car("blue");
         Person male = new Person("John");
         Person female = new Person("Jane");
 
 		Garage smallGarage = new Garage(2);
 		
+        // pass in person instance to spot in the car
         blueCar.addPerson(male, 0);
         blueCar.addPerson(female, 1);
+
+
+        // passing in instance of car to garage spot
 	    smallGarage.ParkCar(blueCar, 0);
+
+
         Console.WriteLine(smallGarage.Cars);
-        //System.Console.WriteLine(blueCar.Passengers);
+        
 		
         }
     }
@@ -38,10 +42,10 @@ namespace OOP1
 
         public List <Person> passengers;
 
+        // add person to passenger array and place in spot of car
         public void addPerson (Person passenger, int spot)
         {
            passengers.Add(passenger);
-           //System.Console.WriteLine(passenger);
         }
 
         public string Passengers {
@@ -71,11 +75,13 @@ namespace OOP1
         
         public int Size { get; private set; }
         
+        // passes car instance into cars array and in particular spot of garage
         public void ParkCar (Car car, int spot)
         {
             cars[spot] = car;
         }
         
+        // prints out the cars in list with their color, spot in garage, and people in car
         public string Cars {
             get {
                 for (int i = 0; i < cars.Length; i++)
