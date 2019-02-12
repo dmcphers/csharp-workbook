@@ -68,6 +68,7 @@ namespace Rainforest
         public static void findItemsContainer(Item item, Company company)
         {
             Dictionary<Item, Container> indexer = new Dictionary<Item, Container>();
+             Dictionary<Item, Warehouse> indexer2 = new Dictionary<Item, Warehouse>();
 
             foreach(Warehouse ware in company.Warehouses)
             {
@@ -76,22 +77,12 @@ namespace Rainforest
                     foreach (Item it in cont.Items)
                     {
                         indexer.Add(it, cont);
-                    }
-                }
-            }
-
-            Dictionary<Item, Warehouse> indexer2 = new Dictionary<Item, Warehouse>();
-            
-            foreach(Warehouse ware in company.Warehouses)
-            {
-                foreach(Container cont in ware.Containers)
-                {
-                    foreach (Item it in cont.Items)
-                    {
                         indexer2.Add(it, ware);
                     }
                 }
             }
+
+         
 
             Container indexedContainer = indexer[item];
             Warehouse indexedWarehouse = indexer2[item];
