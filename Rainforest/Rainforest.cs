@@ -39,8 +39,8 @@ namespace Rainforest
             Manifest(Rainforest);
 
             // call an index method to get location of item passed in belonging to company passed in
-            Index(Item1, Rainforest);
-            Index(Item3, Rainforest);
+            findItemsContainer(Item1, Rainforest);
+            findItemsContainer(Item3, Rainforest);
            
 
             
@@ -65,7 +65,7 @@ namespace Rainforest
             }
         }
 
-        public static void Index(Item item, Company company)
+        public static void findItemsContainer(Item item, Company company)
         {
             Dictionary<Item, Container> indexer = new Dictionary<Item, Container>();
 
@@ -80,8 +80,22 @@ namespace Rainforest
                 }
             }
 
+            Dictionary<Item, Warehouse> indexer2 = new Dictionary<Item, Warehouse>();
+            
+            foreach(Warehouse ware in company.Warehouses)
+            {
+                foreach(Container cont in ware.Containers)
+                {
+                    foreach (Item it in cont.Items)
+                    {
+                        indexer2.Add(it, ware);
+                    }
+                }
+            }
+
             Container indexedContainer = indexer[item];
-            System.Console.WriteLine("The {0} is located in the {1} container", item.Name, indexedContainer.ID);
+            Warehouse indexedWarehouse = indexer2[item];
+            System.Console.WriteLine("The {0} is located in the {1} container in the {2} warehouse", item.Name, indexedContainer.ID, indexedWarehouse.Location);
         }
         
     }
