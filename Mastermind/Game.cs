@@ -37,9 +37,9 @@ namespace Mastermind
             return $" {red} - {white - red}";
         }
 
-        // public void AddRow (Row row){
-        //     this.rows.Add(row);
-        // }
+        public void AddRow (Row row){
+            this.rows.Add(row);
+        }
 
         public string Rows {
             get {

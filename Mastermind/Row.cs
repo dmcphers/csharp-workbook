@@ -1,7 +1,7 @@
 using System;
 namespace Mastermind
 {
-    class Row
+    public class Row
     {
         public Ball[] balls = new Ball[4];
         public Row (Ball[] balls)

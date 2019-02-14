@@ -43,7 +43,7 @@ namespace Mastermind
                 }
                 // pass the new balls array with user input into a Row
                 Row row = new Row(balls);
-                // game.AddRow (row);
+                game.AddRow (row);
                 Console.WriteLine(game.Rows);
             }
             Console.WriteLine("Out of turns");
