@@ -39,12 +39,13 @@ namespace Mastermind
 
         public void AddRow (Row row){
             this.rows.Add(row);
+            Console.WriteLine("row added");
         }
 
         public string Rows {
             get {
                 foreach (var row in this.rows) {
-                    Console.Write (row.Balls);
+                    Console.Write ("test" + row.Balls);
                     Console.WriteLine(Score (row));
                 }
                 return "";

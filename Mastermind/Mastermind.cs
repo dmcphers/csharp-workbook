@@ -19,6 +19,8 @@ namespace Mastermind
         
         // test solution
         public static char[] solution = new char[] {'a', 'b', 'c', 'd'};
+        //GenerateRandomCode(letters);
+        
         
         // game board
         public static string[][] board = new string[allowedAttempts][];
@@ -26,10 +28,14 @@ namespace Mastermind
         
         public static void Main()
         {
+
+            //string[] rndAnswer = CreateAnswer();
+            //System.Console.WriteLine(rndAnswer[0]);
             // declare and instantiate a new instance of game and pass in correct answer
             Game game = new Game (new string[] {"a", "b", "c", "d"});
             CreateBoard();
             DrawBoard();
+            bool won = false;
             // have user guess the 4 letters and either output a message that says won or after try limit - show they lost
             for (int turns = 10; turns > 0; turns--) {
                 Console.WriteLine($"You have {turns} tries left");
@@ -45,8 +51,17 @@ namespace Mastermind
                 Row row = new Row(balls);
                 game.AddRow (row);
                 Console.WriteLine(game.Rows);
+                bool done = CheckSolution(game.Rows.ToCharArray());
+                if (done){
+                    System.Console.WriteLine("you won!");
+                    won = true;
+                    break;
+                }
             }
-            Console.WriteLine("Out of turns");
+            if (won == false){
+                Console.WriteLine("Out of turns");
+            }
+            
             // char[] guess = new char[4];
 
             
@@ -56,12 +71,27 @@ namespace Mastermind
             // leave this command at the end so your program does not close automatically
             Console.ReadLine();
         }
+
+        private static string[] CreateAnswer()
+        {
+            string[] answer = new string[4];
+            for (int i=0; i < 4; i++)
+            {
+                Random rnd = new Random();
+                int num = rnd.Next(0, 4);
+                char letter = (char)('a' + num);
+                answer[i] = letter.ToString();
+            }
+            return answer;
+        }
         
         public static bool CheckSolution(char[] guess)
         {
             // Your code here
+            if (guess == solution){
 
-            return false;
+            }
+            return true;
         }
         
         public static string GenerateHint(char[] guess)
@@ -96,12 +126,13 @@ namespace Mastermind
             
         }
         
-        public static void GenerateRandomCode() {
+        public static char[] GenerateRandomCode(char[] letters) {
             Random rnd = new Random();
             for(var i = 0; i < codeSize; i++)
             {
                 solution[i] = letters[rnd.Next(0, letters.Length)];
             }
+            return solution;
         }
     }    
 }
