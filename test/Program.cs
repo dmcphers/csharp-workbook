@@ -1,145 +1,187 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Mastermind {
-    class Program {
-        //added code to randomly generate solution
-        public static string[] letters = new string[] { "a", "b", "c", "d", "e", "f"};
-        public static int codeSize = 4;
-        public static string[] solution = new string[] {"a", "b", "c", "d"};
-
-        public static void GenerateRandomCode() 
+namespace TowersOfHanoi
+{
+    class Program
+    {
+        static void Main(string[] args)
         {
-            Random rnd = new Random();
-            for(var i = 0; i < codeSize; i++)
+            int numBlocks = GameBlocks();
+
+            Game game = new Game(numBlocks);
+            //starts our new game up with our numBlocks in that runs our first method, GameBlocks
+            Block[] blocks = new Block[game.Blocknum];
+            //makes array of the class of Block all with individual ints called game.Blocknum
+
+            for (int i = game.Blocknum - 1; i >= 0; --i)
+            //loops through all balls in turn and assigns a consecutive number to each
             {
-                solution[i] = letters[rnd.Next(0, letters.Length)];
+                blocks[i] = new Block(i+1);
+                game.towers["A"].blockstack.Push(blocks[i]);
+                //adds all balls in the game to start on Tower A
+            }
+            
+            game.ShowBoard();
+            //shows our board for the first time
+
+            bool won = false;
+            //a boolean to match against the checkWin method
+            while (!won)
+            //if we haven't won yet
+            {
+                //keep the game play happening here until a win is found
+                game.AskMove();
+                game.ShowBoard();
+                won = game.CheckWin();
+            }
+
+            Console.WriteLine("You win!");
+        }
+
+        public static int GameBlocks()
+        //method to set the number of blocks in the game
+        {
+            Console.WriteLine("How many blocks do you want to play with?");
+            string input = Console.ReadLine();
+            //reads the user's input as a string
+            int numBlocks;
+            bool result = Int32.TryParse(input, out numBlocks);
+            //attempt to convert user input from string to int
+            if (!result)
+            //if it cant be converted
+            {
+                Console.WriteLine("You need to pick a number of blocks.");
+                //restate the input we need and run the function again until we can return an int
+                numBlocks = GameBlocks();
+            }
+            return numBlocks;
+        }
+    }
+    class Block
+    {
+        public int weight {get; private set;}
+
+        public Block(int Weight)
+        {
+            this.weight = Weight;
+        }
+    }
+
+    class Tower
+    {
+        public Stack<Block> blockstack = new Stack<Block>();
+        //stack of blocks in the towers class
+        //empty shell until filled
+
+        public Tower(Stack<Block> BlockStack)
+        {
+            this.blockstack = BlockStack;
+        }
+    }
+
+    class Game
+    {
+        public Dictionary<string, Tower> towers = new Dictionary<string, Tower>();
+        //dictionary of towers - string (A, B, C) and the Tower Class
+
+        public int Blocknum = 0;
+
+        public Game(int blocknum)
+        //blocknum is what the user will set to be the nuber of blocks in the game
+        {
+            towers.Add("A", new Tower(new Stack<Block>()));
+            towers.Add("B", new Tower(new Stack<Block>()));
+            towers.Add("C", new Tower(new Stack<Block>()));
+
+            Blocknum = blocknum;
+        }
+
+        public void ShowBoard()
+        {
+            foreach (KeyValuePair<string, Tower> tower in this.towers)
+            //selects each key value pair in our dictionary of towers
+            {
+                Console.WriteLine("Tower {0} contains:", tower.Key);
+
+                foreach(Block block in tower.Value.blockstack)
+                {
+                    Console.WriteLine(block.weight);
+                    //writes out the weight of each block in the stack for each tower
+                }
+                Console.WriteLine();
             }
         }
-        static void Main (string[] args) {
-            //added code to pass maximum number of tries into game
-            int maxTries = 10;
-            //generates random solution; can comment this out to run with test solution "abcd"
-            GenerateRandomCode();
-            Game game = new Game (maxTries, solution);
-            int turns;
-            for (turns = maxTries; turns > 0; turns--)
-            {
-                Console.WriteLine($"You have {turns} tries left");
-                Console.WriteLine ("Choose four letters: ");
-                string letters = Console.ReadLine ();
-                Ball[] balls = new Ball[4];
 
-                for (int i = 0; i < 4; i++) 
-                {
-                    balls[i] = new Ball (letters[i].ToString());
-                }
-                Row row = new Row (balls);
-                game.AddRow (row);
-                
-                //code added to tell user they won and end the game
-                if (game.Rows == "win")
-                {
-                    Console.WriteLine(" - that's right!");
-                    break;
-                }
-            }
-            if (turns == 0)
+        public void AskMove()
+        //method that plays out for each turn in the game
+        {
+            try
+            //used this try/catch to handle the exceptions of an invalid entry
             {
-                Console.WriteLine ("Game Over: Out Of Turns");
+                Console.WriteLine("Which tower do you want to move from? (A,B,C)");
+                string from = Console.ReadLine().ToUpper();
+                Console.WriteLine("Where would you like to place it (A,B,C)");
+                string to = Console.ReadLine().ToUpper();
+
+                MovePiece(towers[from], towers[to]);
+                //this calls our method that actually moves the pieces
+            }
+            catch
+            {
+                Console.WriteLine("Please enter a valid move.");
+                AskMove();
+            }
+        }
+
+        public void MovePiece(Tower from, Tower to)
+        {
+            if (!IsLegal(from, to))
+            //if it is not a legal move the program will let them know
+            {
+                Console.WriteLine("That is not a legal move!");
+                Console.WriteLine("");
+                //and loop back to the askmove function
+                AskMove();
             }
             else
             {
-                Console.WriteLine ("Game Over: You Won");
+                Block tomove = from.blockstack.Pop();
+                //we pop off the block into a variable and push it back onto another stack
+                to.blockstack.Push(tomove);
             }
         }
-    }
 
-    class Game {
-        private List<Row> rows = new List<Row> ();
-        private string[] answer = new string[4];
-        private int maxTries;
+        public bool IsLegal(Tower from, Tower to)
+        //method to actually check legality of block move (weight)
+        {
+            if (to.blockstack.Count <= 0)
+                return true;
 
-        public Game (int maxTries, string[] answer) {
-            this.answer = answer;
-            this.maxTries = maxTries;
-        }
-
-        private string Score (Row row) {
-            string[] answerClone = (string[]) this.answer.Clone ();
-            // red is correct letter and correct position
-            // white is correct letters minus red
-            // this.answer => ["a", "b", "c", "d"]
-            // row.balls => [{ Letter: "c" }, { Letter: "b" }, { Letter: "d" }, { Letter: "a" }]
-            int red = 0;
-            string result = "";
-            for (int i = 0; i < 4; i++) {
-                if (answerClone[i] == row.balls[i].Letter) {
-                    red++;
-                }
+            if (from.blockstack.Count <= 0)
+            {
+                Console.WriteLine("There is nothing to move from that Tower.");
+                return false;
             }
 
-            int white = 0;
-            for (int i = 0; i < 4; i++) {
-                int foundIndex = Array.IndexOf (answerClone, row.balls[i].Letter);
-                if (foundIndex > -1) {
-                    white++;
-                    answerClone[foundIndex] = null;
-                }
-            }
-            
-            result = $" {red} - {white - red}";
+            Block popoff = from.blockstack.Peek();
+            //looks at the values before we try and move to compare the weights
+            Block pushon = to.blockstack.Peek();
 
-            return result;
+            if (pushon == null)
+                return true;
+            else if (popoff.weight < pushon.weight)
+                return true;
+            else
+                return false;
         }
-
-        public void AddRow (Row row) {
-            this.rows.Add (row);
-        }
-
-        public string Rows {
-            get {
-                string result = "";
-
-                foreach (var row in this.rows) {
-                    Console.Write (row.Balls);
-                    //code added to determine if there was a win
-                    if ((Score(row)) == " 4 - 0")
-                    {
-                        result = "win";
-                    }
-                    else    
-                    {
-                        Console.WriteLine (Score (row));
-                    }
-                }
-            return result;
-            }
-        }
-    }
-
-    class Ball {
-        public string Letter { get; private set; }
-
-        public Ball (string letter) {
-            this.Letter = letter;
-        }
-    }
-
-    class Row {
-        public Ball[] balls = new Ball[4];
-
-        public Row (Ball[] balls) {
-            this.balls = balls;
-        }
-
-        public string Balls {
-            get {
-                foreach (var ball in this.balls) {
-                    Console.Write (ball.Letter);
-                }
-                return "";
-            }
+        public bool CheckWin()
+        {
+            if (towers["A"].blockstack.Count == 0 && towers["B"].blockstack.Count == 0)
+            //if towers A and B are empty you have won the game!
+                return true;
+            else
+                return false;
         }
     }
 }
