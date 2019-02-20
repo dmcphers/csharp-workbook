@@ -4,18 +4,22 @@ namespace Mastermind
 {
     public class Game
     {
+        // instantiate a new list of row type
         private List<Row> rows = new List<Row> ();
-        private string[] answer = new string[4];
-        public int guesses;
+        // instantiate a new string of size 4 that will hold answer
+        private string[] Answer = new string[4];
+        public int Guesses;
+        // game constructor that accepts the random answer and number of guesses
         public Game(string[] answer, int guesses)
         {
-            this.answer = answer;
-            this.guesses = guesses;
+            this.Answer = answer;
+            this.Guesses = guesses;
         }
     
-
+        // pass in user selected balls(letters) and compares the balls(letters) and their positions to the
+        // letter in the answer
         public string Score (Row row) {
-            string[] answerClone = (string[])this.answer.Clone();
+            string[] answerClone = (string[])this.Answer.Clone();
             // red is correct letter and correct position
             // white is correcct letters minus red
             // this.answer => ["a", "b", "c", "d"]
@@ -28,11 +32,6 @@ namespace Mastermind
                
 
             }
-            //  if (red == 4)
-            //  {
-            //      bool win = true;
-            //      Console.WriteLine("You won!");
-            //  }
 
             int white = 0;
             for (int i = 0; i < 4; i++) {
@@ -42,15 +41,16 @@ namespace Mastermind
                     answerClone[foundIndex] = null;
                 }
             }
-
+            // return score to function call
             return $"{red} - {white - red}";
         }
 
+        // pass in user selected balls(letters) to a new row
         public void AddRow (Row row){
             this.rows.Add(row);
-            //Console.WriteLine("row added");
         }
 
+        // function that prints out each letter user chose and the resulting score for that turn
         public string Rows {
             get {
                 foreach (var row in this.rows) {
