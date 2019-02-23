@@ -18,7 +18,7 @@ namespace TowersOfHanoi
             Block[] blocks = new Block[game.Blocknum];
 
             // loop through all the blocks in the block array while assigning a value(weight) to each block
-            for (int i = game.Blocknum -1; i >= 0; i--)
+            for (int i = game.Blocknum - 1; i >= 0; i--)
             {
                 blocks[i] = new Block(i + 1);
                 // push all blocks to tower A to start the game

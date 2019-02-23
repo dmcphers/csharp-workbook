@@ -15,6 +15,8 @@ namespace Mastermind
             // call function CreateAnswer and set return value to a string array called answer
             string[] answer = CreateAnswer();
 
+            // code to print out random answer for debugging purposes
+
             // foreach(var i in answer)
             // {
             //     System.Console.WriteLine(i);
@@ -26,7 +28,7 @@ namespace Mastermind
             for (int turns = userTurns; turns > 0; turns--)
             {
                 Console.WriteLine($"You have {turns} tries left");
-                Console.WriteLine("Choose four letters: ");
+                Console.WriteLine("Choose any combination of the four letters a,b,c, or d: ");
                 string letters = Console.ReadLine();
                 // instantiate a new array of type ball that has a length of 4
                 Ball[] balls = new Ball[4];
