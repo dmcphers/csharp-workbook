@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace polymorphism
 {
@@ -9,24 +10,17 @@ namespace polymorphism
             Motorcycle harley = new Motorcycle("Harley", "FatBoy", 2, false);
             Car civic = new Car("Honda", "Civic", 4, true);
             Truck ford = new Truck("Ford", "F150", 4, 8);
-            String motoDesc = harley.GetDescription();
-            String carDesc = civic.GetDescription();
-            String truckDesc = ford.GetDescription();
-
-
-            Console.WriteLine(motoDesc);
-            System.Console.WriteLine(carDesc);
-            System.Console.WriteLine(truckDesc);
-            //System.Console.WriteLine(descrip);
            
-            // List<Vehicle> inventory = new List<Vehicle>();
-            // inventory.Add(harley);
-            // inventory.Add(civic);
+            List<Vehicle> inventory = new List<Vehicle>();
+            inventory.Add(harley);
+            inventory.Add(civic);
+            inventory.Add(ford);
 
-            // foreach(Vehicle v in inventory)
-            // {
-            //     // print out description of vehicle
-            // }
+            foreach(Vehicle v in inventory)
+            {
+                // print out description of vehicle
+                Console.WriteLine(v.GetDescription());
+            }
         }
     }
     public abstract class Vehicle
@@ -40,13 +34,10 @@ namespace polymorphism
             this.Model = model;
             this.NumWheels = numWheels;
         }
-        // public String GetDescription()
-        // {
-        //     String desc = String.Format("The vehicle is a ")
-        // }
 
         // this means all vehicles must include getdescription method
-        //abstract public String GetDescription();
+        abstract
+        public String GetDescription();
     }
     public class Motorcycle : Vehicle
     {
@@ -55,16 +46,11 @@ namespace polymorphism
         {
             this.IsCruiser = isCruiser;
         }
-        public String GetDescription()
+        public override String GetDescription()
         {
-            String desc = "The motorcycle is a " + Make + " " + Model +" with " + NumWheels + " wheels and " + (IsCruiser ? "is" : "is not") + " a cruiser";
+            String desc = "The motorcycle is a " + Make + " " + Model +" with " + NumWheels + " wheels and " + (IsCruiser ? "is" : "is not") + " a cruiser.";
             return desc;
         }
-        // public string GetDescription()
-        // {
-        //     string message = "returned message";
-        //     return message;
-        // }
     }
     public class Car : Vehicle
     {
@@ -73,9 +59,9 @@ namespace polymorphism
         {
             this.IsConvertible = isConvertible;
         }
-        public String GetDescription()
+        public override String GetDescription()
         {
-            String desc = "The car is a " + Make + " " + Model +" with " + NumWheels + " wheels and " + (IsConvertible ? "is" : "is not") + " a convertible";
+            String desc = "The car is a " + Make + " " + Model +" with " + NumWheels + " wheels and " + (IsConvertible ? "is" : "is not") + " a convertible.";
             return desc;
         }
     }
@@ -86,9 +72,9 @@ namespace polymorphism
         {
             this.BedSize = bedSize;
         }
-        public String GetDescription()
+        public override String GetDescription()
         {
-            String desc = "The truck is a " + Make + " " + Model + " with " + NumWheels + " wheels and the bed size is " + BedSize + " foot";
+            String desc = "The truck is a " + Make + " " + Model + " with " + NumWheels + " wheels and the bed size is " + BedSize + " foot.";
             return desc;
         }
     }
