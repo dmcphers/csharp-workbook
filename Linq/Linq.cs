@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Linq;
 
-namespace Linq
+namespace Linq1
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // return sum of squares with linq expression
+           
         }
     }
 }
