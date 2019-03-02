@@ -6,21 +6,10 @@ namespace enums
     {
         static void Main(string[] args)
         {
-            // System.Console.WriteLine(DaysOfWeek.Monday);
-            // System.Console.WriteLine(DaysOfWeek.Tuesday);
-            // System.Console.WriteLine(DaysOfWeek.Wednesday);
-            // System.Console.WriteLine(DaysOfWeek.Thursday);
-            // System.Console.WriteLine(DaysOfWeek.Friday);
-            // System.Console.WriteLine(DaysOfWeek.Saturday);
-            // System.Console.WriteLine(DaysOfWeek.Sunday);
-            // System.Console.WriteLine();
-
-            
-            // foreach (var item in Enum.GetValues(typeof(System.DayOfWeek)))
              foreach (var item in Enum.GetValues(typeof(DaysOfWeek)))
             {
-                var monthEnum = (DaysOfWeek)item;
-                System.Console.WriteLine(monthEnum.ToString());
+                var dayEnum = (DaysOfWeek)item;
+                System.Console.WriteLine(dayEnum.ToString());
             }
         }
 

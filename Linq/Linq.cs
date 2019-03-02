@@ -8,17 +8,16 @@ namespace Linq1
     {
         public static int[] numberList = {1,2,3,4};
         public static int sum = 0;
-           
+
+         // method demonstrating the sum of squares using Linq           
         public static int sumOfSquares()
         {
             return numberList.Sum(num => num * num);
         }
-
-        
     
         public static void Main()
         {
-            // method demonstrating the sum of squares using Linq
+           
 
             sum = sumOfSquares();
             System.Console.WriteLine("The sum of squares is: {0}",sum);
@@ -33,7 +32,7 @@ namespace Linq1
             students.Add(new Student("Victoria", "512-827-8498", "701 Brazos St", 0));
             students.Add(new Student("Luke", "555-555-5555", "451 Brody Ln", -500));
             
-            //your code here
+            
             var negbalStudents = 
                 from st in students
                 where (st.Balance < 0)
