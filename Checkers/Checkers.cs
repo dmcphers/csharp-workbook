@@ -8,17 +8,19 @@ namespace Checkers
     {
         static void Main(string[] args)
         {
+            // needed to allow for output of UTF8 symbols
             Console.OutputEncoding = System.Text.Encoding.UTF8;
-            //Console.WriteLine("Hello World!");
+            // instantiate a new game
             Game game = new Game();
+            // call the startGame method of game
             game.startGame();
-            
-            
         }
     }
 
     public class Checker
     {
+        public int[] Position  { get; set; }
+        public string Color { get; set; }
          
         // Gets the Open or Closed circle value based on the checker's color
         public String Symbol
@@ -45,15 +47,13 @@ namespace Checkers
                 }
             }
         }
-        public int[] Position  { get; set; }
-        public string Color { get; set; }
 
-        // checker constructor        
+          // checker constructor        
         public Checker(string color)
         {
             this.Color = color;
         }
-
+    
          // ToString override
         public override String ToString()
         {
@@ -63,19 +63,27 @@ namespace Checkers
 
     public class Board
     {
+        // board will have a jagged array of type Checker called Grid that makes up the board
         public Checker[][] Grid  { get; set; }
+        // there will be a list of type Checker called Checkers that will hold Checkers currently on board
         public List<Checker> Checkers { get; set; }
-        
+
+        // board constructor does not need any parameters        
         public Board()
         {
             // Your code here
             return;
         }
         
+        // method that creates the grid for the board and creates all the checker instances 
+        // in their approprate positions at the beginning of the game
         public void CreateBoard()
         {
-           Checker checker;
+            // declare new variable checker of type Checker
+            Checker checker;
+            // instantiate new list of type Checker called Checkers
             Checkers = new List<Checker>();
+            // instantiate new jagged array of type Checker called Grid for creating the board
             Grid = new Checker[8][]
             {
                 new Checker[8],
@@ -130,27 +138,27 @@ namespace Checkers
         }
         
         
-        public void GenerateCheckers()
-        {
-            // Your code here
-            return;
-        }
+        // public void GenerateCheckers()
+        // {
+        //     // Your code here
+        //     return;
+        // }
         
-        public void PlaceCheckers()
-        {
-            for (var i = 0; i < Checkers.Count; i++)
-{
-  int[] position = Checkers[i].Position;
-  Grid[position[0]][position[1]] = Checkers[i];
-}
-        }
+        // public void PlaceCheckers()
+        // {
+        //     for (var i = 0; i < Checkers.Count; i++)
+        //     {
+        //         int[] position = Checkers[i].Position;
+        //         Grid[position[0]][position[1]] = Checkers[i];
+        //     }
+        // }
         
         public string DrawBoard()
         {
               // Header
             String formattedBoard = "  0 1 2 3 4 5 6 7" + "\n";
 
-            // Loops through drawinng the gameboard from the Grid array of Checkers
+            // Loops through drawing the gameboard from the Grid array of Checkers
             for (int row = 0; row < 8; row++)
             {
                 formattedBoard += Convert.ToString(row) + " ";
@@ -179,7 +187,7 @@ namespace Checkers
                     }
                 }
             }
-
+            
             return formattedBoard;
         }
         
@@ -202,6 +210,7 @@ namespace Checkers
 
     class Game
     {
+        // game constructor does not need any parameters
         public Game()
         {
             // Your code here
@@ -209,10 +218,11 @@ namespace Checkers
 
         public void startGame()
         {
+            // instantiate a new instance of Board called boardgame
             Board boardgame = new Board();
+            // call CreateBoard method on instance of board
             boardgame.CreateBoard();
             Console.WriteLine(boardgame.DrawBoard());
         }
-        
     }
 }
