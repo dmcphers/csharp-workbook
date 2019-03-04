@@ -137,21 +137,93 @@ namespace Checkers
             }
         }
         
-        
-        // public void GenerateCheckers()
-        // {
-        //     // Your code here
-        //     return;
-        // }
-        
-        // public void PlaceCheckers()
-        // {
-        //     for (var i = 0; i < Checkers.Count; i++)
-        //     {
-        //         int[] position = Checkers[i].Position;
-        //         Grid[position[0]][position[1]] = Checkers[i];
-        //     }
-        // }
+        // method to place the checker based on user input
+        // and logic that checks the validity of that user input
+        public bool PlaceChecker(int originRow, int originColumn, int destinationRow, int destinationColumn, Checker checker)
+        {
+            // check if position is empty
+           if (Grid[destinationRow][destinationColumn] == null)
+           {
+                if (checker.Color == "white")
+                {
+                    // make sure the user did not move more than one row or column and make sure user did not move backwards
+                    if ((destinationRow == originRow + 1) && (destinationColumn == originColumn - 1 || destinationColumn == originColumn + 1))
+                    {
+                        Console.Clear();
+                        Grid[destinationRow][destinationColumn] = checker;
+                        return true;
+                    }
+                    else if ((destinationRow == originRow + 2) && (destinationColumn == originColumn - 2 || destinationColumn == originColumn + 2))
+                    {
+                        // if moving right, only allow the user to jump a checker if jumped checker is not white
+                        if ((destinationColumn > originColumn) && (Grid[destinationRow - 1][destinationColumn - 1].Color != "white"))
+                        {
+                            Grid[destinationRow][destinationColumn] = checker;
+                            return true;
+                        }
+                        // if moving left, only allow the user to jump a checker if jumped checker is not white
+                        else if ((destinationColumn < originColumn) && (Grid[destinationRow - 1][destinationColumn + 1].Color != "white"))
+                        {
+                            Grid[destinationRow][destinationColumn] = checker;
+                            return true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("You cannot jump your own checker. Please try again.");
+                            return false;
+                            //throw new Exception("trying to jump own checker");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("You cannot move backwards and you cannot move more than 1 row or column at a time. Please try again.");
+                        return false;
+                    }
+                }
+                 if (checker.Color == "black")
+                {
+                   // make sure the user did not move more than one row or column and make sure user did not move backwards
+                    if ((destinationRow == originRow - 1) && (destinationColumn == originColumn - 1 || destinationColumn == originColumn + 1))
+                    {
+                        Grid[destinationRow][destinationColumn] = checker;
+                        return true;
+                    }
+                    // Checks to make sure the user isn't trying to jump a black checker
+                    else if ((destinationRow == originRow - 2) && (destinationColumn == originColumn - 2 || destinationColumn == originColumn + 2))
+                    {
+                        // if moving right, only allow the user to jump a checker if jumped checker is not black
+                        if ((destinationColumn > originColumn) && (Grid[destinationRow + 1][destinationColumn - 1].Color != "black"))
+                        {
+                            Grid[destinationRow][destinationColumn] = checker;
+                            return true;
+                        }
+                        // if moving left, only allow the user to jump a checker if jumped checker is not black
+                        else if ((destinationColumn < originColumn) && (Grid[destinationRow + 1][destinationColumn + 1].Color != "black"))
+                        {
+                            Grid[destinationRow][destinationColumn] = checker;
+                            return true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("You cannot jump your own checker. Please try again.");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("You cannot move backwards and you cannot move more than 1 row or column at a time. Please try again.");
+                        return false;
+                    }
+                }
+           }
+           else
+           {
+               Console.Clear();
+               Console.WriteLine("Not a valid move. There is a checker there. Plese try again.");
+               return false;
+           }
+           return true;
+        }
         
         public string DrawBoard()
         {
@@ -191,17 +263,95 @@ namespace Checkers
             return formattedBoard;
         }
         
-        // public Checker SelectChecker(int row, int column)
-        // {
-        //     return Checkers.Find(x => x.Position.SequenceEqual(new List<int> { row, column }));
-        // }
-        
-        public void RemoveChecker(int row, int column)
+        public Checker SelectChecker(int row, int column, string color)
         {
-            // Your code here
-            return;
+            if (Grid[row][column].Color != color)
+            {
+                String invalidTurn = Grid[row][column].Color;
+                System.Console.WriteLine("It is not {0}'s turn!", invalidTurn);
+            }
+            return Grid[row][column];
         }
         
+        public bool RemoveChecker(int originRow, int originColumn, int destinationRow, int destinationColumn, Checker checker)
+        {
+            if (checker.Color == "white")
+            {
+                // if the player jumped a checker
+                if (destinationRow == originRow + 2)
+
+                // if (Grid[destinationRow - 1][destinationColumn - 1].Color == "white")
+                // {
+                //     System.Console.WriteLine("you cannot jump your own checker.");
+                //     return false;
+                // }
+                // else 
+                {
+                    // player moves right
+                    if (destinationColumn == originColumn + 2)
+                    {
+                        // remove the jumped checker from the Checkers list
+                        Checkers.Remove(Grid[destinationRow -1][destinationColumn - 1]);
+                        // remove the checker the player moved from its origin
+                        Grid[originRow][originColumn] = null;
+                        // remove the jumped checker
+                        Grid[destinationRow - 1][destinationColumn - 1] = null;
+                        // return true since a checker was jumped
+                        return true;
+                    }
+                    // player moves left
+                    else if (destinationColumn == originColumn - 2)
+                    {
+                        // remove the jumped checker from the Checkers list
+                        Checkers.Remove(Grid[destinationRow -1][destinationColumn + 1]);
+                        // remove the checker the player moved from its origin
+                        Grid[originRow][originColumn] = null;
+                        // remove the jumped checker
+                        Grid[destinationRow - 1][destinationColumn + 1] = null;
+                        // return true since a checker was jumped
+                        return true;
+                    }
+                }
+            }
+            if (checker.Color == "black")
+            {
+                // if the player jumped a checker
+                if (destinationRow == originRow - 2)
+                {
+                    // player moves right
+                    if (destinationColumn == originColumn + 2)
+                    {
+                        // remove the jumped checker from the Checkers list
+                        Checkers.Remove(Grid[destinationRow + 1][destinationColumn - 1]);
+                        // remove the checker the player moved from its origin
+                        Grid[originRow][originColumn] = null;
+                        // remove the jumped checker
+                        Grid[destinationRow + 1][destinationColumn - 1] = null;
+                        // return true since a checker was jumped
+                        return true;
+                    }
+                    // player moves left
+                    else if (destinationColumn == originColumn - 2)
+                    {
+                        // remove the jumped checker from the Checkers list
+                        Checkers.Remove(Grid[destinationRow + 1][destinationColumn + 1]);
+                        // remove the checker the player moved from its origin
+                        Grid[originRow][originColumn] = null;
+                        // remove the jumped checker
+                        Grid[destinationRow + 1][destinationColumn + 1] = null;
+                        // return true since a checker was jumped
+                        return true;
+                    }
+                }
+            }
+
+            // Removes the Checker the player moved from it's origin
+            Grid[originRow][originColumn] = null;
+            return false;
+        }
+        
+        // method will check if all checkers in the list are white or none of the checkers in the list are white
+        // in which case it would return true because that would mean someone won
         public bool CheckForWin()
         {
             return Checkers.All(x => x.Color == "white") || !Checkers.Exists(x => x.Color == "white");
@@ -220,9 +370,122 @@ namespace Checkers
         {
             // instantiate a new instance of Board called boardgame
             Board boardgame = new Board();
+            // initialize starting game color
+            String color = "white";
+             // create a boolean to see if checker placement was valid
+            bool placedChecker;
+            // create a boolean to see if checker was removed
+            bool removedChecker;
             // call CreateBoard method on instance of board
             boardgame.CreateBoard();
-            Console.WriteLine(boardgame.DrawBoard());
+
+            // loop that will run as long as there is no winner
+            do
+            {
+                //Console.Clear();
+                 // call method that will output to the screen the board with its checkers in appropriate places
+                Console.WriteLine(boardgame.DrawBoard());
+
+                //try
+                //{
+                    // user selects a checker to move
+                    Console.WriteLine($"{color}, please enter a row to move from:");
+                    int originRow = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine($"{color}, please enter a column to move from:");
+                    int originColumn = Convert.ToInt32(Console.ReadLine());
+                    Checker checker = boardgame.SelectChecker(originRow, originColumn, color);
+
+                    // Console.Clear();
+                    // Console.WriteLine(boardgame.DrawBoard());
+
+                    // place the checker in position on board based on user input
+                    Console.WriteLine("Please enter the row to move to: ");
+                    int destinationRow = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Please enter the column to move to: ");
+                    int destinationColumn = Convert.ToInt32(Console.ReadLine());
+                    placedChecker = boardgame.PlaceChecker(originRow, originColumn, destinationRow, destinationColumn, checker);
+                    if (placedChecker == false)
+                    {
+                        do
+                        {
+                        Console.WriteLine(boardgame.DrawBoard());
+                            // user selects a checker to move
+                        Console.WriteLine($"{color}, please enter a row to move from:");
+                        originRow = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine($"{color}, please enter a column to move from:");
+                        originColumn = Convert.ToInt32(Console.ReadLine());
+                        checker = boardgame.SelectChecker(originRow, originColumn, color);
+
+                        // Console.Clear();
+                        // Console.WriteLine(boardgame.DrawBoard());
+
+                        // place the checker in position on board based on user input
+                        Console.WriteLine("Please enter the row to move to: ");
+                        destinationRow = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Please enter the column to move to: ");
+                        destinationColumn = Convert.ToInt32(Console.ReadLine());
+                        placedChecker = boardgame.PlaceChecker(originRow, originColumn, destinationRow, destinationColumn, checker);
+                        }while(placedChecker == false);
+                        //System.Console.WriteLine("test");
+                    }
+                    
+                   
+
+                    
+                    // Console.Clear();
+                    //Console.WriteLine(boardgame.DrawBoard());
+
+                     // Removes jumped checker and the jumping checker from it's origin if checker removed
+                     // or just removes the checker from its origin if a checker is not jumped
+                    removedChecker = boardgame.RemoveChecker(originRow, originColumn, destinationRow, destinationColumn, checker);
+
+                    //Console.Clear();
+                    Console.WriteLine(boardgame.DrawBoard());
+                    
+                    // Checks if a Checker was removed in the turn. If there was and that player did not win,
+                    // program asks the player if they can make another move by jumping another opponent's Checker with
+                    // the same Checker they just played with. If player says no, it becomes the other players turn.
+                    // If no checker was removed, it becomes the other person's turn
+                    if (removedChecker && !boardgame.CheckForWin())
+                    {
+                        String userInput = "";
+                        do
+                        {
+                            Console.WriteLine("Do you have another move you can make with the same checker? [Y/N]");
+                            userInput = Console.ReadLine().ToLower();
+                        }while (userInput != "y" && userInput != "n");
+
+                        if (userInput == "n")
+                        {
+                            if (color == "white")
+                            {
+                                color = "black";
+                            }
+                            else
+                            {
+                                color = "white";
+                            }
+                        }
+                    }  // Changes the player turn
+                    else if (!removedChecker)
+                    {
+                        if (color == "white")
+                        {
+                            color = "black";
+                        }
+                        else
+                        {
+                            color = "white";
+                        }
+                    }
+                //}
+                // catch
+                // {
+                //     Console.WriteLine("Invalid selection");
+                // }
+            }while(!boardgame.CheckForWin());
+
+            Console.WriteLine("{0} wins!!!", color);
         }
     }
 }
