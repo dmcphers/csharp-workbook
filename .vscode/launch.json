@@ -26,7 +26,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "./bin/Debug/netcoreapp2.0/${fileBasenameNoExtension}.dll",
+            "program": "./bin/Debug/netcoreapp2.2/${fileBasenameNoExtension}.dll",
             "args": [],
             "cwd": "${fileDirname}",
             "stopAtEntry": false,
