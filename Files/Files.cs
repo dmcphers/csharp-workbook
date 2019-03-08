@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Files
 {
@@ -7,50 +8,96 @@ namespace Files
     {
         static void Main(string[] args)
         {
-            // //Console.WriteLine("Hello World!");
-            // List<string> words = new List<string>{"cat", "ba", "dog"};
-            // List<string> result = moreThanThree(words);
-            // foreach (var r in result)
+
+            //1.) Create a text file that says "This is a text file."
+            //string textFile = "This is a stupendous text file.";
+            // WriteAllText creates a file, writes the specified string to the file,
+            // and then closes the file.    You do NOT need to call Flush() or Close().
+            //System.IO.File.WriteAllText(@"C:\testfilewrite\WriteText.txt", textFile);
+
+
+            //2.) Edit the previous file to say "This is a text file, and I can edit it."
+            // string editedText = File.ReadAllText(@"C:\testfilewrite\WriteText.txt");
+            // editedText = editedText.Replace(".", ", and I can edit it.");
+            // File.WriteAllText(@"C:\testfilewrite\WriteText.txt", editedText);
+
+            //3. Write a program that deletes the previously created file.
+            //File.Delete(@"C:\testfilewrite\WriteText.txt");
+
+
+            //4. Write a program that reads a text file and displays the number of words
+
+            // StreamReader sr = new StreamReader(@"C:\testfilewrite\WriteText.txt");
+
+            // int counter = 0;
+            // string delim = " .";
+            // string[] fields = null;
+            // string line = null;
+
+            // while(!sr.EndOfStream)
             // {
-            //     System.Console.WriteLine(r);
+            //     line = sr.ReadLine();
+            //     line.Trim();
+            //     fields = line.Split(delim.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            //     counter += fields.Length;
             // }
-            // string text = "A class is the most powerful data type in C#. Like a structure, " +
-            //            "a class defines the data and behavior of the data type. ";
-            // // WriteAllText creates a file, writes the specified string to the file,
-            // // and then closes the file.    You do NOT need to call Flush() or Close().
-            // System.IO.File.WriteAllText(@"C:\testfilewrite\WriteText.txt", text);
+
+            // sr.Close();
+            // Console.WriteLine("The word count is {0}", counter);
 
 
-           simpleWay(args);
+            //5.) Write a program that reads a text file and displays the longest word in file
+
+            // byte[] bytes = System.IO.File.ReadAllBytes(@"C:\testfilewrite\WriteText.txt");
+            // string file = System.Text.Encoding.UTF8.GetString(bytes);
+
+            // string[] words = file.Split(new[] {" "}, StringSplitOptions.None);
+            //     string word = "";
+            //     int counter = 0;
+            //     foreach(string s in words)
+            //     {
+            //         if(s.Length > counter)
+            //         {
+            //             word = s;
+            //             counter = s.Length;
+            //         }
+            //     }
+
+            //     Console.WriteLine("The longest word in the file is {0}", word);
+
+            Random rnd = new Random();
+
+           // byte[] bytes = System.IO.File.ReadAllBytes(@"C:\testfilewrite\words_alpha.txt");
+            //string file = System.Text.Encoding.UTF8.GetString(bytes);
+            string[] wordsfirst = new string[] {"cat", "dog", "mouse"};
+
+            //string[] words = file.Split("\n");
+
+            
+            int wordIndex = rnd.Next(wordsFirst.Length);
+            //string[] charstotrim = {" ","\n"};
+            string secretWord = words[wordIndex];
+            //int wordIndex = 1;
 
 
+            Console.WriteLine("The secret word is: {0}", secretWord);
+
+            Console.WriteLine("Guess a word I am thinking of and I will tell you if it is correct or before or after my word.");
+            string guess = Console.ReadLine();
+            Console.WriteLine(guess.GetType());
+            Console.WriteLine(secretWord.GetType());
+
+
+            Console.WriteLine(guess.Equals(secretWord));
+            // if (string.Equals(guess, secretWord))
+            // {
+            //     Console.WriteLine("That is correct");
+            // }
+            // else if (guess == words[wordIndex])
+            // {
+            //     Console.WriteLine("You got it!!!");
+            // }
+                    
         }
-        
-        private static void simpleWay(string[] args)
-        {
-             string textToWrite = string.Join(" ", args);
-
-            string documentsPath =  Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string documentName = "simple way";
-            string documentExtension = ".txt";
-            string fullPathToFile = $"{documentsPath}\\{documentName}.{documentExtension}";
-            System.IO.File.WriteAllText(fullPathToFile, textToWrite);
-
-            System.Console.WriteLine($"Press any key to close {documentName}.{documentExtension} file");
-            System.Console.ReadLine();
-        }
-        // public static List<string> moreThanThree(IEnumerable<string> input)
-        // {
-        //     List<string> results = new List<string>();
-        //     foreach (var i in input)
-        //     {
-        //         if (i.Length > 2)
-        //         {
-        //             results.Add(i);
-        //         }
-                
-        //     }
-        //     return results;
-        // }
     }
 }
