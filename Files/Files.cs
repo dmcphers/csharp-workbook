@@ -67,32 +67,52 @@ namespace Files
 
             Random rnd = new Random();
 
-           // byte[] bytes = System.IO.File.ReadAllBytes(@"C:\testfilewrite\words_alpha.txt");
-            //string file = System.Text.Encoding.UTF8.GetString(bytes);
-            string[] wordsfirst = new string[] {"cat", "dog", "mouse"};
+            byte[] bytes = System.IO.File.ReadAllBytes(@"C:\testfilewrite\words_alpha.txt");
+            string file = System.Text.Encoding.UTF8.GetString(bytes);
 
-            //string[] words = file.Split("\n");
+            //string[] words = File.ReadAllLines(@"C:\testfilewrite\words_alpha.txt");
 
-            
-            int wordIndex = rnd.Next(wordsFirst.Length);
+            //file = file.Replace("\n", String.Empty);
+
+            string[] words = file.Split("\n");
+            // Console.WriteLine("The array of words length is: {0}", words.Length);
+            // foreach (string w in words)
+            // {
+            //     w.Remove(w.Length - 2);
+            // }
+
+            int wordIndex = rnd.Next(0, words.Length);
             //string[] charstotrim = {" ","\n"};
             string secretWord = words[wordIndex];
             //int wordIndex = 1;
-
-
             Console.WriteLine("The secret word is: {0}", secretWord);
 
             Console.WriteLine("Guess a word I am thinking of and I will tell you if it is correct or before or after my word.");
             string guess = Console.ReadLine();
             Console.WriteLine(guess.GetType());
             Console.WriteLine(secretWord.GetType());
+            Console.WriteLine(guess.Length);
+            Console.WriteLine(secretWord.Length);
+            Console.WriteLine(guess);
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine(secretWord);
+            Console.ResetColor();
 
+            //         if (guess.Length != secretWord.Length)
+            // throw new Exception("Well here's the problem");
+
+            // for (int i = 0; i < secretWord.Length; i++) {
+            //     if (secretWord[i] != guess[i]) {
+            //         throw new Exception("Difference at character: " + i+1);
+            //     }
+            // }
 
             Console.WriteLine(guess.Equals(secretWord));
-            // if (string.Equals(guess, secretWord))
-            // {
-            //     Console.WriteLine("That is correct");
-            // }
+            if (string.Equals(guess, secretWord))
+            {
+                Console.WriteLine("That is correct");
+            }
             // else if (guess == words[wordIndex])
             // {
             //     Console.WriteLine("You got it!!!");
