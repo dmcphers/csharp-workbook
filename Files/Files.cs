@@ -83,7 +83,7 @@ namespace Files
 
             int wordIndex = rnd.Next(0, words.Length);
             //string[] charstotrim = {" ","\n"};
-            string secretWord = words[wordIndex];
+            string secretWord = words[wordIndex].Substring(0,words[wordIndex].Length - 2);
             //int wordIndex = 1;
             Console.WriteLine("The secret word is: {0}", secretWord);
 
