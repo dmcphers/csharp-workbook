@@ -31,8 +31,8 @@ namespace variables
           result = yards * 36;
           System.Console.WriteLine("The number of inches in {0} yards is {1}", yards, result);
 
-        bool people = true;
-        bool f = false;
+        //bool people = true;
+        //bool f = false;
         decimal num = 1.5m;
 
         System.Console.WriteLine("the product of num times itself is {0}", num*num);
