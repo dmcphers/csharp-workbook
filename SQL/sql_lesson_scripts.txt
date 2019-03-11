@@ -1,0 +1,173 @@
+/*CREATE THE TABLE*/
+/*
+USE [toystore]
+GO
+
+/****** Object:  Table [dbo].[toys]    Script Date: 3/4/2019 8:05:21 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[toys](
+	[description] [nchar](10) NULL,
+	[price] [money] NULL,
+	[ID] [numeric](18, 0) NULL,
+	[Quantity_in_Stock] [numeric](18, 0) NULL
+) ON [PRIMARY]
+GO
+*/
+
+
+/* CREATE ITEMS IN THE TABLE*/
+
+/*
+INSERT INTO toys (description, price, ID, Quantity_in_Stock)
+VALUES ('toysoldier', 7.50, 115, 13);
+*/
+/*
+INSERT INTO toys (description, price, ID, Quantity_in_Stock)
+VALUES ('bike', 40.50, 111, 12);
+*/
+/*
+INSERT INTO toys (description, price, ID, Quantity_in_Stock)
+VALUES ('kite', 6.50, 112, 14);
+*/
+/*
+INSERT INTO toys (description, price, ID, Quantity_in_Stock)
+VALUES ('train', 12.50, 100, 15);
+*/
+/*
+INSERT INTO toys (description, price, ID, Quantity_in_Stock)
+VALUES ('doll', 14.50, 116, 17);
+*/
+/*
+INSERT INTO toys (description, price, ID, Quantity_in_Stock)
+VALUES ('ball', 10.50, 117, 23);
+*/
+/*
+INSERT INTO toys (description, price, ID, Quantity_in_Stock)
+VALUES ('airplane', 18.50, 119, 16);
+*/
+/*
+INSERT INTO toys (description, price, ID, Quantity_in_Stock)
+VALUES ('frisbee', 9.50, 120, 18);
+*/
+/*
+INSERT INTO toys (description, price, ID, Quantity_in_Stock)
+VALUES ('gumby', 5.50, 121, 15);
+*/
+/*
+INSERT INTO toys (description, price, ID, Quantity_in_Stock)
+VALUES ('lego', 13.50, 122, 19);
+*/
+
+/* DELETE A PRODUCT*/
+
+/*
+delete from toys where ID = 122
+*/
+
+/* ADD A PRODUCT*/
+
+/*
+INSERT INTO toys (description, price, ID, Quantity_in_Stock)
+VALUES ('furby', 15.50, 123, 17);
+*/
+
+/* ADD ANOTHER TABLE CALLED AISLES WITH ID AND NAME*/
+
+/*
+USE [toystore]
+GO
+
+/****** Object:  Table [dbo].[aisles]    Script Date: 3/4/2019 8:24:44 PM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [dbo].[aisles](
+	[ID] [numeric](18, 0) NOT NULL,
+	[name] [nchar](10) NULL
+) ON [PRIMARY]
+GO
+*/
+
+/*ADD PRIMARY KEY TO AISLES TABLE*/
+
+/*
+ALTER TABLE aisles
+ADD PRIMARY KEY (ID);
+*/
+
+/* ADD AISLES TO AISLE TABLE*/
+
+/*
+INSERT INTO aisles (ID, name)
+VALUES (17, 'aisle_17');
+*/
+/*
+INSERT INTO aisles (ID, name)
+VALUES (18, 'aisle_18');
+*/
+/*
+INSERT INTO aisles (ID, name)
+VALUES (19, 'aisle_19');
+*/
+
+/*ADD AISLE_ID TO THE TOYS TABLE*/
+
+/*
+ALTER TABLE dbo.toys ADD aisle_id [numeric](18, 0) NULL;  
+*/
+
+/*ADD FOREIGN KEY TO AISLES TABLE*/
+
+/*
+ALTER TABLE toys
+ADD FOREIGN KEY (aisle_id) REFERENCES aisles(ID);
+*/
+
+/*ASSIGN AN AISLE_ID TO EACH TOY IN TOYS*/
+
+/*
+UPDATE TOYS SET AISLE_ID = 17 where ID = 100
+*/
+/*
+UPDATE TOYS SET AISLE_ID = 17 where ID = 111
+*/
+/*
+UPDATE TOYS SET AISLE_ID = 17 where ID = 112
+*/
+/*
+UPDATE TOYS SET AISLE_ID = 18 where ID = 115
+*/
+/*
+UPDATE TOYS SET AISLE_ID = 18 where ID = 116
+*/
+/*
+UPDATE TOYS SET AISLE_ID = 18 where ID = 117
+*/
+/*
+UPDATE TOYS SET AISLE_ID = 19 where ID = 119
+*/
+/*
+UPDATE TOYS SET AISLE_ID = 19 where ID = 120
+*/
+/*
+UPDATE TOYS SET AISLE_ID = 19 where ID = 121
+*/
+/*
+UPDATE TOYS SET AISLE_ID = 19 where ID = 123
+*/
+
+/*QUERY TO RETURN TOYS, WHAT AISLE THEY ARE ON, AND HOW MANY OF TOY IN STOCK*/
+
+/*
+SELECT description, aisle_id, Quantity_in_Stock 
+FROM TOYS, AISLES
+WHERE toys.aisle_id = aisles.ID
+*/
