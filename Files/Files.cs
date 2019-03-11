@@ -65,58 +65,55 @@ namespace Files
 
             //     Console.WriteLine("The longest word in the file is {0}", word);
 
+
+
+
+            // Program to read a random word from list, ask user to guess the word,
+            // and tell user if their choice is correct, before, or after the random word
+           
+            bool boolGuess = false;
             Random rnd = new Random();
 
-            byte[] bytes = System.IO.File.ReadAllBytes(@"C:\testfilewrite\words_alpha.txt");
-            string file = System.Text.Encoding.UTF8.GetString(bytes);
-
-            //string[] words = File.ReadAllLines(@"C:\testfilewrite\words_alpha.txt");
-
-            //file = file.Replace("\n", String.Empty);
-
-            string[] words = file.Split("\n");
-            // Console.WriteLine("The array of words length is: {0}", words.Length);
-            // foreach (string w in words)
-            // {
-            //     w.Remove(w.Length - 2);
-            // }
+            string[] words = File.ReadAllLines(@"C:\testfilewrite\words_alpha.txt");
 
             int wordIndex = rnd.Next(0, words.Length);
-            //string[] charstotrim = {" ","\n"};
-            string secretWord = words[wordIndex].Substring(0,words[wordIndex].Length - 2);
-            //int wordIndex = 1;
+            
+            string secretWord = words[wordIndex];
+            
             Console.WriteLine("The secret word is: {0}", secretWord);
 
-            Console.WriteLine("Guess a word I am thinking of and I will tell you if it is correct or before or after my word.");
-            string guess = Console.ReadLine();
-            Console.WriteLine(guess.GetType());
-            Console.WriteLine(secretWord.GetType());
-            Console.WriteLine(guess.Length);
-            Console.WriteLine(secretWord.Length);
-            Console.WriteLine(guess);
-            Console.BackgroundColor = ConsoleColor.White;
-            Console.ForegroundColor = ConsoleColor.Black;
-            Console.WriteLine(secretWord);
-            Console.ResetColor();
-
-            //         if (guess.Length != secretWord.Length)
-            // throw new Exception("Well here's the problem");
-
-            // for (int i = 0; i < secretWord.Length; i++) {
-            //     if (secretWord[i] != guess[i]) {
-            //         throw new Exception("Difference at character: " + i+1);
-            //     }
-            // }
-
-            Console.WriteLine(guess.Equals(secretWord));
-            if (string.Equals(guess, secretWord))
+            Console.WriteLine("Guess a word I have chosen that is in my list and I will tell you if your answer is correct or before or after my word.");
+           
+            do
             {
-                Console.WriteLine("That is correct");
-            }
-            // else if (guess == words[wordIndex])
-            // {
-            //     Console.WriteLine("You got it!!!");
-            // }
+                string guess = Console.ReadLine();
+                int guessIndex = Array.IndexOf(words, guess);
+                if (guessIndex >= 0)
+                {
+                    int secretWordIndex = Array.IndexOf(words, secretWord);
+                    if (guessIndex == secretWordIndex)
+                    {
+                        System.Console.WriteLine("Good job, you guessed it!");
+                        boolGuess = true;
+                    }
+                    else if (guessIndex < secretWordIndex)
+                    {
+                        System.Console.WriteLine("Your word choice is before my secret word. Please try again.");
+                        boolGuess = false;
+                    }
+                    else if (guessIndex > secretWordIndex)
+                    {
+                        System.Console.WriteLine("Your word choice is after my secret word. Please try again.");
+                        boolGuess = false;
+                    }
+                }
+                else
+                {
+                    System.Console.WriteLine("Your word choice is not in my list. Please choose another word.");
+                    boolGuess = false;
+                }
+                
+            }while (boolGuess == false);
                     
         }
     }
